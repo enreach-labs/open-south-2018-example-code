@@ -1,0 +1,36 @@
+- name: Add an Apt signing key for Docker repository
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Uninstall old versions of docker
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-engine
+    - docker.io
+
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Add repositories to the list
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb https://download.docker.com/linux/ubuntu xenial stable
+
+- name: Install Docker Community Edition
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: yes
