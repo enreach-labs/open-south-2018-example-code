@@ -1,0 +1,3 @@
+- name: Update apt repositories
+  apt:
+    update_cache: yes
