@@ -1,0 +1,7 @@
+- name: Download Jenkins agent JAR file from Jenkins machine
+  get_url:
+    url: http://10.10.0.10:8080/jnlpJars/agent.jar
+    dest: /home/vagrant/agent.jar
+
+- name: Run Jenkins agent
+  shell: "java -jar /home/vagrant/agent.jar -jnlpUrl http://10.10.0.10:8080/computer/agent-name/test-agent.jnlp &"

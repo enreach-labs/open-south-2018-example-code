@@ -1,6 +1,7 @@
 - hosts: jenkins
   become: true
   roles:
+    - java
     - jenkins
     - docker
     - sonarqube
@@ -9,13 +10,18 @@
   become: true
   roles:
     - docker
+    - java
 
 - hosts: staging
   become: true
   roles:
     - docker
+    - java
 
-- hosts: prod
+- hosts:
+    - prod1
+    - prod2
   become: true
   roles:
     - docker
+    - java

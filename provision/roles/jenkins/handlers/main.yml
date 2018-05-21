@@ -1,0 +1,5 @@
+- name: Jenkins restart handler
+  service:
+    name: jenkins
+    state: restarted
+  listen: "restart jenkins"
