@@ -3,6 +3,7 @@
   roles:
     - jenkins
     - docker
+    - sonarqube
 
 - hosts: test
   become: true

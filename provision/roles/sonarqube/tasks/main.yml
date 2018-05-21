@@ -1,0 +1,12 @@
+- name: Pull Sonarqube docker image
+  docker_image:
+    name: sonarqube
+
+- name: Start Sonarqube container
+  docker_container:
+    restart: yes
+    name: sonarqube
+    image: sonarqube
+    restart_policy: unless-stopped
+    ports:
+      - "9000:9000"
