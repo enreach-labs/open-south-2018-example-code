@@ -20,6 +20,7 @@
     - apt-transport-https
     - ca-certificates
     - curl
+    - gnupg2
     - software-properties-common
 
 - name: Add repositories to the list
