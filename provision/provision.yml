@@ -1,4 +1,4 @@
-- hosts: jenkins
+- hosts: develop
   become: true
   roles:
     - java
@@ -17,6 +17,11 @@
   roles:
     - docker
     - java
+
+- hosts: repository
+  become: true
+  roles:
+    - docker
 
 - hosts:
     - prod1

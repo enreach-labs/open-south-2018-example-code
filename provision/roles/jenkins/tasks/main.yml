@@ -54,17 +54,17 @@
 - name: install plugin
   jenkins_plugin:
    name: "{{ item }}"
-   state: latest
+   state: present
    with_dependencies: yes
    url_username: admin
    url_password: "{{ adminpwd.stdout }}"
   with_items: 
     - build-pipeline-plugin
-    - blueocean
     - ssh-agent
     - stashNotifier
     - ansible
     - cucumber-reports
     - github
+    - blueocean
   notify:
     - restart jenkins
