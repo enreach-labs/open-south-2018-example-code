@@ -17,3 +17,46 @@
     state: present
   with_items:
     - jenkins
+
+- name: read admin pwd
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: adminpwd
+
+- name: unlock and add admin user
+  jenkins_script:
+   script: |
+    import jenkins.model.*
+    import hudson.security.*
+    def instance = Jenkins.getInstance()
+    def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+    hudsonRealm.createAccount('jenkins', '${user_pwd}')
+    instance.setSecurityRealm(hudsonRealm)
+    def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
+    strategy.setAllowAnonymousRead(false)
+    instance.setAuthorizationStrategy(strategy)
+    instance.save()
+   args:
+    user_pwd: "test1234"
+   user: admin
+   password: "{{ adminpwd.stdout }}"
+
+- name: complete setup wizard
+  jenkins_script:
+   script: |
+    import static jenkins.model.Jenkins.instance as jenkins
+    import jenkins.install.InstallState
+    if (!jenkins.installState.isSetupComplete()) {
+      InstallState.INITIAL_SETUP_COMPLETED.initializeState()
+    }
+   user: admin
+   password: "{{ adminpwd.stdout }}"
+
+- name: install plugin
+  jenkins_plugin:
+   name: "{{ item }}"
+   state: latest
+   url_username: admin
+   url_password: "{{ adminpwd.stdout }}"
+  with_items: 
+    - build-pipeline-plugin
+    - blueocean
