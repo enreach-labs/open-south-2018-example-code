@@ -1,0 +1,25 @@
+# Codeception Test Suite Configuration
+#
+# Suite for functional tests
+# Emulate web requests and make application process them
+# Include one of framework modules (Symfony2, Yii2, Laravel5) to use it
+# Remove this suite if you don't use frameworks
+
+actor: FunctionalTester
+gherkin:
+    contexts:
+        default:
+            - FunctionalTester
+            - \Steps\Post\BasicPostSteps
+            - \Steps\Post\PublishPostSteps
+            - \Steps\Post\EditPostSteps
+#        delete:
+#            - FunctionalTester
+#            - \Steps\Post\BasicPostSteps
+#            - \Steps\Post\PublishPostSteps
+#            - \Steps\Post\DeletePostSteps
+modules:
+    enabled:
+        # add a framework module here
+        - \Helper\Functional
+        - Asserts

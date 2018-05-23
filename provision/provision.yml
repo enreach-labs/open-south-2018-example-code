@@ -1,4 +1,4 @@
-- hosts: develop
+- hosts: jenkins
   become: true
   roles:
     - java
@@ -18,15 +18,16 @@
     - docker
     - java
 
-- hosts: repository
-  become: true
-  roles:
-    - docker
-
-- hosts:
-    - prod1
-    - prod2
+- hosts: prod1
   become: true
   roles:
     - docker
     - java
+    - swarm-manager
+
+- hosts: prod2
+  become: true
+  roles:
+    - docker
+    - java
+    - swarm-worker

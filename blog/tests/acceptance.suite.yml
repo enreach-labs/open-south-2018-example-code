@@ -1,0 +1,22 @@
+actor: AcceptanceTester
+gherkin:
+    contexts:
+        default:
+            - AcceptanceTester
+            - \Steps\Post\BasicPostSteps
+            - \Steps\Post\PublishPostSteps
+            - \Steps\Post\EditPostSteps
+            - \Steps\Post\DeletePostSteps
+            - \Steps\Post\GetPostSteps
+modules:
+    enabled:
+        - \Helper\Acceptance
+        - Asserts
+#        - Db:
+#           dsn: 'mysql:host=192.168.6.3;dbname=testdb;port=3306'
+#           user: 'root'
+#           password: 'rootdevpass'
+#           populate: true # load dump before all tests
+#           cleanup: true # load dump for each test
+#           dump: 'tests/_data/mysql.sql'
+#           populator: 'mysql -u root -h 192.168.6.3 -prootdevpass testdb < $dump'

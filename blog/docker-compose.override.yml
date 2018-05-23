@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  blog:
+    build:
+      context: ./docker/blog
+    container_name: blog
+    volumes:
+      - ./:/var/www
+      - ../php-common-team-1:/var/common/php-common-team-1
+    ports:
+      - "${PORT}:80"
+    networks:
+      my-net:
+        ipv4_address: 192.168.6.2
+  database:
+    image: mysql:5.7
+    environment:
+      - MYSQL_USER=bloguser
+      - MYSQL_PASSWORD=blogdevpass
+      - MYSQL_DATABASE=blog_db
+      - MYSQL_ROOT_PASSWORD=rootdevpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./config/mysql.sql:/docker-entrypoint-initdb.d/mysql.sql
+    networks:
+      my-net:
+        ipv4_address: 192.168.6.3
+networks:
+  my-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.6.0/24
