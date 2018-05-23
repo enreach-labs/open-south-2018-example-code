@@ -1,0 +1,7 @@
+- name: determine swarm status
+  shell: "docker info | egrep '^Swarm: ' | cut -d ' ' -f2"
+  register: swarm_status
+
+- name: initialize swarm cluster
+  shell: docker swarm init --advertise-addr={{ hostvars['prod1']['ansible_host'] }}:2377
+  when: "'active' not in swarm_status.stdout_lines"

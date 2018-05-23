@@ -18,10 +18,16 @@
     - docker
     - java
 
-- hosts:
-    - prod1
-    - prod2
+- hosts: prod1
   become: true
   roles:
     - docker
     - java
+    - swarm-manager
+
+- hosts: prod2
+  become: true
+  roles:
+    - docker
+    - java
+    - swarm-worker
