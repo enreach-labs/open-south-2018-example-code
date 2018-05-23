@@ -15,3 +15,8 @@
     state: present
   with_items:
     - oracle-java8-installer
+
+- name: install Maven
+  apt:
+    name: maven
+    state: present

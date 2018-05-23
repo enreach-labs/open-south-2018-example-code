@@ -66,5 +66,6 @@
     - cucumber-reports
     - github
     - blueocean
+    - sonar
   notify:
     - restart jenkins

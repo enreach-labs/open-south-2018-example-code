@@ -1,33 +1,33 @@
-- hosts: jenkins
+- hosts: all
+  become: true
+  roles:
+    - docker
+
+- hosts: develop
   become: true
   roles:
     - java
     - jenkins
-    - docker
     - sonarqube
 
 - hosts: test
   become: true
   roles:
-    - docker
     - java
 
 - hosts: staging
   become: true
   roles:
-    - docker
     - java
 
 - hosts: prod1
   become: true
   roles:
-    - docker
     - java
     - swarm-manager
 
 - hosts: prod2
   become: true
   roles:
-    - docker
     - java
     - swarm-worker
