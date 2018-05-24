@@ -8,5 +8,5 @@
   register: token
 
 - name: Join swarm cluster as worker
-  shell: "docker swarm join --token {{ token.stdout_lines }} {{ hostvars['prod1']['ansible_host'] }}:2377"
-  when: "'active' not in swarm_status.stdout_lines[0]"
+  shell: "docker swarm join --token {{ token.stdout_lines[0] }} {{ hostvars['prod1']['ansible_host'] }}:2377"
+  when: "'inactive' in swarm_status.stdout_lines[0]"
