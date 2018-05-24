@@ -38,3 +38,16 @@ services:
     App\DataFixtures\:
         resource: '../src/DataFixtures'
         tags: [doctrine.fixture.orm]
+
+    easy_impress.controller.presentation:
+        public: true
+        class: Orbitale\Bundle\EasyImpressBundle\Controller\PresentationController
+        arguments:
+            - '%easy_impress.layout%'
+            - '@easy_impress'
+            - '@twig'
+
+    easy_impress:
+        class: Orbitale\Bundle\EasyImpressBundle\Impress\EasyImpress
+        arguments:
+            - '%easy_impress.presentations%'

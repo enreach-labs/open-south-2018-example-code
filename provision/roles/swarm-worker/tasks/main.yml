@@ -5,8 +5,8 @@
 - name: retrieve swarm worker token from manager host
   command: "docker swarm join-token -q worker"
   delegate_to: "prod1"
-  register: token 
+  register: token
 
 - name: Join swarm cluster as worker
   shell: "docker swarm join --token {{ token.stdout_lines }} {{ hostvars['prod1']['ansible_host'] }}:2377"
-  when: "'active' not in swarm_status.stdout_lines"
+  when: "'active' not in swarm_status.stdout_lines[0]"

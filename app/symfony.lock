@@ -125,6 +125,15 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "orbitale/easyimpress-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "d13df16ea1990be70160d21ea4e9a3bcbd974edd"
+        }
+    },
     "pagerfanta/pagerfanta": {
         "version": "v1.0.5"
     },
