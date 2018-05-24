@@ -15,6 +15,7 @@ pipeline {
                 label "master"
             }
             steps {
+                sh "composer install"
                 sh "${WORKSPACE}/app/docker/build.sh test ${BUILD_NUMBER}" 
                 sh "docker run --rm -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
                 sh "docker exec test-${BUILD_NUMBER} php vendor/bin/phpunit"
