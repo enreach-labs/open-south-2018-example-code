@@ -1,6 +1,15 @@
 pipeline {
     agent none
     stages {
+        stage ("Static code anlysis"){
+	    agent {
+                label "master"
+            }
+            steps {
+                checkout([$class: 'GitSCM', poll : true, branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/RafalEsp/devops-provision.git']]])
+	        sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/"
+            }
+        }
         stage ("Run Unit tests"){
             agent {
                 label "master"
