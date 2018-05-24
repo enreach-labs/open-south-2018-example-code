@@ -1,7 +1,0 @@
-actor: ApiTester
-modules:
-    enabled:
-        - \Helper\Api
-        - REST:
-            depends: PhpBrowser
-            url: http://blog.voiceworks.dev

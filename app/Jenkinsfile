@@ -1,0 +1,15 @@
+pipeline {
+    agent none
+    stages {
+        stage ("Run Unit tests"){
+            agent {
+                label "master"
+            }
+            steps {
+                sh "docker exec unit-${BUILD_NUMBER} php vendor/bin/phpunit"
+                sh "docker stop unit-${BUILD_NUMBER}"
+                sh "docker rmi registry.partnersquad.voiceworks.com/operator-unit:${BUILD_NUMBER}"
+            }
+        }
+    }
+}

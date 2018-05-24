@@ -1,7 +1,0 @@
-FROM kt-dino-blog:scratch
-
-ARG VIRTUALHOST="blog.partnersquad.voiceworks.com"
-ARG PORT=8079
-
-COPY ./ /var/www
-RUN composer install -o --no-dev --classmap-authoritative

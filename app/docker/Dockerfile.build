@@ -1,0 +1,6 @@
+FROM example-app:scratch
+
+LABEL maintainer="pedro.parraortega@voiceworks.com"
+COPY ./ /var/www
+
+CMD [ "/bin/bash", "/usr/sbin/apache2ctl", "-e", "debug", "-D", "FOREGROUND" ]
