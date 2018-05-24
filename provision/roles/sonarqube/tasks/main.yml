@@ -10,3 +10,15 @@
     restart_policy: unless-stopped
     ports:
       - "9000:9000"
+
+- name: Download and expand sonar-runner.
+  unarchive:
+    src: "https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip"
+    dest: "/usr/local"
+    remote_src: yes
+
+- name: Prepare proper sonar-runner properties
+  lineinfile:
+    dest: /usr/local/sonar-scanner-3.2.0.1227-linux/conf/sonar-scanner.properties
+    regexp: '#sonar.host.url=http://localhost:9000'
+    line: 'sonar.host.url=http://localhost:9000'
