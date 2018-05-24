@@ -42,5 +42,8 @@
     name: docker-py
     state: present
 
-- name: Adding vagrant to docker group
-  shell: usermod -aG docker vagrant
+- name: Adding vagrant user to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes

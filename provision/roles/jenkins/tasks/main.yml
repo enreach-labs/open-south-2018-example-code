@@ -58,7 +58,8 @@
    with_dependencies: yes
    url_username: admin
    url_password: "{{ adminpwd.stdout }}"
-  with_items: 
+   timeout: 300
+  with_items:
     - build-pipeline-plugin
     - ssh-agent
     - stashNotifier
