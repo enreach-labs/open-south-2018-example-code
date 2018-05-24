@@ -2,6 +2,7 @@
   become: true
   roles:
     - docker
+    - users
 
 - hosts: develop
   become: true

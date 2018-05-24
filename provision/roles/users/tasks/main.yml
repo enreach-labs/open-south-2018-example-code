@@ -1,0 +1,10 @@
+- name: Create Jenkins user
+  user:
+    name: jenkins
+    state: present
+
+- name: Adding Jenkins user to docker group
+  user:
+    name: jenkins
+    groups: docker
+    append: yes
