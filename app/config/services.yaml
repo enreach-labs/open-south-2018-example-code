@@ -39,9 +39,9 @@ services:
         resource: '../src/DataFixtures'
         tags: [doctrine.fixture.orm]
 
-    easy_impress.controller.presentation:
+    App\Controller\PresentationController:
         public: true
-        class: Orbitale\Bundle\EasyImpressBundle\Controller\PresentationController
+        class: App\Controller\PresentationController
         arguments:
             - '%easy_impress.layout%'
             - '@easy_impress'
