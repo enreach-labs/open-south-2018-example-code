@@ -1,0 +1,81 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<jenkins.branch.OrganizationFolder plugin="branch-api@2.0.20">
+    <actions/>
+    <description></description>
+    <properties>
+        <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty plugin="cloudbees-folder@6.4">
+            <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+                <entry>
+                    <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@2.1.16">
+                        <specifications/>
+                    </com.cloudbees.plugins.credentials.domains.Domain>
+                    <java.util.concurrent.CopyOnWriteArrayList>
+                        <com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl plugin="credentials@2.1.16">
+                            <id>avensis</id>
+                            <description>avensis</description>
+                            <username>avensis</username>
+                            <password>{AQAAABAAAAAQ71OyKZb16Bg3aLuzrEqCDIU4cBvPS+wMAPksJAbAoyE=}</password>
+                        </com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
+                    </java.util.concurrent.CopyOnWriteArrayList>
+                </entry>
+            </domainCredentialsMap>
+        </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+        <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.2.9">
+            <dockerLabel></dockerLabel>
+            <registry plugin="docker-commons@1.13"/>
+        </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+        <jenkins.branch.NoTriggerOrganizationFolderProperty>
+            <branches>.*</branches>
+        </jenkins.branch.NoTriggerOrganizationFolderProperty>
+    </properties>
+    <folderViews class="jenkins.branch.OrganizationFolderViewHolder">
+        <owner reference="../.."/>
+    </folderViews>
+    <healthMetrics>
+        <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.4">
+            <nonRecursive>false</nonRecursive>
+        </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+    </healthMetrics>
+    <icon class="jenkins.branch.MetadataActionFolderIcon">
+        <owner class="jenkins.branch.OrganizationFolder" reference="../.."/>
+    </icon>
+    <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.4">
+        <pruneDeadBranches>true</pruneDeadBranches>
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>-1</numToKeep>
+    </orphanedItemStrategy>
+    <triggers>
+        <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.4">
+            <spec>H H * * *</spec>
+            <interval>86400000</interval>
+        </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+    </triggers>
+    <disabled>false</disabled>
+    <navigators>
+        <org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator plugin="github-branch-source@2.3.4">
+            <repoOwner>RafalEsp</repoOwner>
+            <credentialsId>test</credentialsId>
+            <traits>
+                <jenkins.scm.impl.trait.RegexSCMSourceFilterTrait plugin="scm-api@2.2.7">
+                    <regex>devops-provision</regex>
+                </jenkins.scm.impl.trait.RegexSCMSourceFilterTrait>
+                <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                    <strategyId>1</strategyId>
+                </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                    <strategyId>1</strategyId>
+                </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+                    <strategyId>1</strategyId>
+                    <trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission"/>
+                </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+            </traits>
+        </org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator>
+    </navigators>
+    <projectFactories>
+        <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory plugin="workflow-multibranch@2.19">
+            <scriptPath>app/Jenkinsfile</scriptPath>
+        </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory>
+    </projectFactories>
+    <buildStrategies/>
+</jenkins.branch.OrganizationFolder>

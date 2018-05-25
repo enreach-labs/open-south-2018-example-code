@@ -11,6 +11,11 @@
     ports:
       - "9000:9000"
 
+- name: Install the package unzip
+  apt:
+    name: unzip
+    state: present
+
 - name: Download and expand sonar-runner.
   unarchive:
     src: "https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip"

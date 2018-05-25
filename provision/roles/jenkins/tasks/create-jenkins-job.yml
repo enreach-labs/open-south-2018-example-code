@@ -1,0 +1,13 @@
+- name: Creates directory for multibranch job
+  file:
+    path: /var/lib/jenkins/jobs/pipeline_example
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: 0775
+
+- name: Create github multibranch job
+  template:
+    src: templates/config.xml
+    dest: /var/lib/jenkins/jobs/pipeline_example/config.xml
+    owner: jenkins
