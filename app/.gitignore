@@ -19,7 +19,6 @@
 .env
 /public/bundles/
 /var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
