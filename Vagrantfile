@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
         dev.vm.box = "ubuntu/xenial64"
         dev.vm.network "private_network", ip: "10.10.0.10"
         dev.vm.provider "virtualbox" do |v|
-            v.memory = 4096
+            v.memory = 2096
             v.cpus = 1
         end
     end
@@ -26,15 +26,6 @@ Vagrant.configure(2) do |config|
         sta.vm.box = "ubuntu/xenial64"
         sta.vm.network "private_network", ip: "10.10.0.12"
         sta.vm.provider "virtualbox" do |v|
-            v.memory = 1024
-            v.cpus = 1
-        end
-    end
-
-    config.vm.define "registry" do |reg|
-        reg.vm.box = "ubuntu/xenial64"
-        reg.vm.network "private_network", ip: "10.10.0.13"
-        reg.vm.provider "virtualbox" do |v|
             v.memory = 1024
             v.cpus = 1
         end
