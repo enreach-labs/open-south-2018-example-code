@@ -13,50 +13,24 @@ namespace App\Controller;
 
 use Orbitale\Bundle\EasyImpressBundle\Impress\EasyImpress;
 use Orbitale\Bundle\EasyImpressBundle\Model\Presentation;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class PresentationController
+class PresentationController extends Controller
 {
-    /**
-     * @var EasyImpress
-     */
-    private $impress;
 
     /**
-     * @var Environment
+     * @Route("/presentation")
      */
-    private $twig;
-
-    /**
-     * @var string
-     */
-    private $layout;
-
-    public function __construct($layout, EasyImpress $impress, Environment $twig)
+    public function presentation()
     {
-        $this->impress = $impress;
-        $this->twig = $twig;
-        $this->layout = $layout;
-    }
 
-    /**
-     * @Route("/presentations/{presentationName}")
-     */
-    public function presentation($presentationName)
-    {
-        /** @var Presentation $presentation */
-        $presentation = $this->impress->getPresentation($presentationName);
-
-        if (!$presentation) {
-            throw new NotFoundHttpException('Presentation "'.$presentationName.'" not found.');
-        }
-
-        return new Response($this->twig->render('impress/presentation.html.twig', [
-            'layout'       => $this->layout,
-            'presentation' => $presentation,
-        ]));
+        return $this->render("impress/presentation.html.twig", [
+            'layout'       => "impress/layout.html.twig",
+            'slides' => 2,
+        ]);
     }
 }

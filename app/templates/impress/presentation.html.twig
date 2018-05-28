@@ -5,8 +5,9 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/easyimpress/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/override.css') }}" rel="stylesheet">
     <style type="text/css">
-        .step.future, .step.past { opacity: {{ presentation.inactiveOpacity }}; }
+        /*.step.future, .step.past { opacity: 0.1; }*/
     </style>
 {% endblock %}
 
@@ -14,20 +15,15 @@
 
     {% spaceless %}
 
-    <div id="impress"
-        {%- for key, value in presentation.data if value is not empty %} data-{{ key }}="{{ value }}"{%- endfor -%}
-        {%- for key, value in presentation.attr if value is not empty %} {{ key }}="{{ value }}"{% endfor -%}
-    >
-        {%- for slide in presentation.slides -%}
-            <div id="{{ slide.id }}"
-                {%- for key, value in slide.data if value is not empty %} data-{{ key }}="{{ value }}"{%- endfor -%}
-                {%- for key, value in slide.attr if value is not empty %} {{ key }}="{{ value | raw }}"{% endfor -%}
-            >
-                {#{{- (slide.content|default('&nbsp;'))|raw -}}#}
-                {% include "impress/slides/" ~ (slide.content | striptags) ~ ".html.twig" %}
-            </div>
+    <div id="impress" >
+        {% include "impress/slides/0.html.twig" %}
+        {% include "impress/slides/1.html.twig" %}
+        {% include "impress/slides/2.html.twig" %}
 
-        {%- endfor -%}
+        {#{%- for i in 0..slides -%}#}
+            {#{{- (slide.content|default('&nbsp;'))|raw -}}#}
+            {#{% include "impress/slides/" ~ i ~ ".html.twig" %}#}
+        {#{%- endfor -%}#}
 
     </div><!-- /#impress -->
 
@@ -36,7 +32,7 @@
             <div class="cover-container">
                 <div id="content">
                     {%- block content -%}
-                        {%- if (presentation.slides | length) > 1 -%}
+                        {%- if slides > 1 -%}
                             <div id="arrow_clickable">
                                 <div id="left_arrow_clickable"></div>
                                 <div id="right_arrow_clickable"></div>
@@ -51,9 +47,6 @@
 
                 <footer class="mastfoot" id="footer">
                     <p>
-                        <small>
-                            Pierstoval &ndash; {{ 'now' | date('Y') }}
-                        </small>
                     </p>
                 </footer>
 

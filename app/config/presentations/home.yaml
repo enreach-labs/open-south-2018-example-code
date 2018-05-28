@@ -4,24 +4,24 @@ data:
     transition-duration: 1000
 
 slides:
-    - content: '0'
-      attr:
-      data:
-          x: 100
-          y: 100
-          z: 0
-          rotate-x: 0
-          rotate-y: 0
-          rotate-z: 0
-
-    - content: '1'
-      attr:
-        style: "padding: 0; margin: 0;"
-        data-scale: 4
-      data:
-        x: 0
-        z: 0
-        rotate-y: 0
+#    - content: '0'
+#      attr:
+#      data:
+#          x: 100
+#          y: 100
+#          z: 0
+#          rotate-x: 0
+#          rotate-y: 0
+#          rotate-z: 0
+#
+#    - content: '1'
+#      attr:
+#        style: "padding: 0; margin: 0;"
+#      data:
+#
+#          x: 0
+#          z: 0
+#          "rotate-y": 0
 #
 #    - content: '2'
 #      attr:
