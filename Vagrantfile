@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
         dev.vm.box = "ubuntu/xenial64"
         dev.vm.network "private_network", ip: "10.10.0.10"
         dev.vm.provider "virtualbox" do |v|
-            v.memory = 2096
+            v.memory = 3072
             v.cpus = 1
         end
     end

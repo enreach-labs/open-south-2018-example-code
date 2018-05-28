@@ -1,5 +1,8 @@
 - name: Include jenkins installation tasks
   include: install-jenkins.yml
 
+- name: Include jenkins jobs tasks
+  include: create-jenkins-job.yml
+
 - name: Include composer installation tasks
   include: install-composer.yml
