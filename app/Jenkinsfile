@@ -47,7 +47,7 @@ pipeline {
                 }
             }
         }
-        stage ("Deploy app in Test server)
+        stage ("Deploy app in Test server")
             agent {
                 label "master"
             }
