@@ -1,3 +1,26 @@
 .black-text {
     color: #000 !important;
 }
+
+.mtb {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.ptb {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+a, a:focus, a:hover {
+    color: #626265 !important;
+    text-decoration: underline;
+}
+
+.normal-text {
+    text-align: justify;
+}
+
+h1 {
+    font-size: 48px;
+    font-style: italic;
+    font-weight: bold;
+}

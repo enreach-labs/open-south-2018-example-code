@@ -3,8 +3,11 @@
 /var/*
 !/var/cache
 /var/cache/*
-!var/cache/.gitkeep
 !/var/data
+/var/data/*
+!var/cache/.gitkeep
+!var/data/blog.sqlite
+!var/data/blog.sqlite
 !/var/log
 /var/log/*
 !var/log/.gitkeep
@@ -18,7 +21,6 @@
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
-/var/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

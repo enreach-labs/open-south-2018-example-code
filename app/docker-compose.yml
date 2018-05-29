@@ -7,11 +7,11 @@ services:
       - 80:80
     volumes:
       - ./:/var/www      
-  database:
-    image: mysql:latest
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_DATABASE: "example"
-      MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_ROOT_HOST: "%"
+#  database:
+#    image: mysql:latest
+#    ports:
+#      - 3306:3306
+#    environment:
+#      MYSQL_DATABASE: "example"
+#      MYSQL_ROOT_PASSWORD: "password"
+#      MYSQL_ROOT_HOST: "%"
