@@ -26,7 +26,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept --suite unit"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run unit"
                     }
                 }
                 stage ("Run Component tests"){
@@ -34,7 +34,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept --suite functional"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run functional"
                     }
                 }
                 stage ("Run E2E tests"){
@@ -42,7 +42,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept --suite acceptance"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
                     }
                 }
             }
