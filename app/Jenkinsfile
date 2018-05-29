@@ -16,7 +16,6 @@ pipeline {
             steps {
                 sh "docker run --rm -p 80:80 --volume ${WORKSPACE}/app:/app composer install"
                 sh "${WORKSPACE}/app/docker/build.sh summalabs ${BUILD_NUMBER}"
-                sh "docker run -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
             }
         }
         stage ("Run tests") {
