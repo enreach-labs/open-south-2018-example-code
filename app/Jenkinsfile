@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh "docker run --rm --volume ${WORKSPACE}/app:/app composer install"
                 sh "${WORKSPACE}/app/docker/build.sh test ${BUILD_NUMBER}" 
-                sh "docker run --rm -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
+                sh "docker run -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
             }
         }
         stage ("Run tests") {
