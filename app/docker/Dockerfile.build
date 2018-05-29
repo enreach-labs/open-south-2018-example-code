@@ -5,4 +5,3 @@ COPY ./ /var/www
 
 RUN chown -R www-data:www-data /var/www
 
-CMD [ "/bin/bash", "/usr/sbin/apache2ctl", "-e", "debug", "-D", "FOREGROUND" ]
