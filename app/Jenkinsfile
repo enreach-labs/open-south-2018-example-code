@@ -14,7 +14,7 @@ pipeline {
                 label "master"
             }
             steps {
-                sh "docker run --rm --volume ${WORKSPACE}/app:/app composer install"
+                sh "docker run --rm -p 80:80--volume ${WORKSPACE}/app:/app composer install"
                 sh "${WORKSPACE}/app/docker/build.sh test ${BUILD_NUMBER}" 
                 sh "docker run -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
             }
@@ -37,17 +37,16 @@ pipeline {
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run functional"
                     }
                 }
-                stage ("Run E2E tests"){
-                    agent {
-                        label "master"
-                    }
-                    steps {
-                        sh "sleep 5s"
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
-                    }
-                }
             }
-        }
+            }
+        stage ("Run E2E tests"){
+                                agent {
+                                    label "master"
+                                }
+                                steps {
+                                    sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
+                                }
+                            }
         stage ("Deploy app in Test server"){
             agent {
                 label "master"
