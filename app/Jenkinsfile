@@ -42,7 +42,6 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept build
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
                     }
                 }
