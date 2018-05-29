@@ -15,44 +15,37 @@ pipeline {
             }
             steps {
                 sh "docker run --rm -p 80:80 --volume ${WORKSPACE}/app:/app composer install"
-                sh "${WORKSPACE}/app/docker/build.sh test ${BUILD_NUMBER}" 
+                sh "${WORKSPACE}/app/docker/build.sh summalabs ${BUILD_NUMBER}"
                 sh "docker run -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
             }
         }
         stage ("Run tests") {
-            parallel {
-                stage ("Run unit tests"){
-                    agent {
-                        label "master"
-                    }
-                    steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run unit"
-                    }
-                }
-                stage ("Run Component tests"){
-                    agent {
-                        label "master"
-                    }
-                    steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run functional"
-                    }
-                }
-            }
-            }
-        stage ("Run E2E tests"){
-                                agent {
-                                    label "master"
-                                }
-                                steps {
-                                    sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
-                                }
+                    parallel {
+                        stage ("Run unit tests"){
+                            agent {
+                                label "master"
                             }
-        stage ("Deploy app in Test server"){
+                            steps {
+                                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run unit"
+                            }
+                        }
+                        stage ("Run Component tests"){
+                            agent {
+                                label "master"
+                            }
+                            steps {
+                                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run functional"
+                            }
+                        }
+                    }
+                }
+
+        stage ("Deploy app in Staging server"){
             agent {
                 label "master"
             }
             steps {
-                sh "deploy"
+                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker info"
             }
         }
     }

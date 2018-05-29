@@ -15,11 +15,13 @@
   become: true
   roles:
     - java
+    - sshHost
 
 - hosts: staging
   become: true
   roles:
     - java
+    - sshHost
 
 - hosts: prod1
   become: true
