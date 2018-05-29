@@ -3,11 +3,8 @@
 /var/*
 !/var/cache
 /var/cache/*
-!/var/data
-/var/data/*
 !var/cache/.gitkeep
-!var/data/blog.sqlite
-!var/data/blog_test.sqlite
+!var/data/*
 !/var/log
 /var/log/*
 !var/log/.gitkeep
