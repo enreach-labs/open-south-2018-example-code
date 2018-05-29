@@ -6,7 +6,7 @@ pipeline {
                 label "master"
             }
             steps {
-	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor"
+	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor/**"
             }
         }
         stage ("Prepare the docker image"){
