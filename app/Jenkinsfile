@@ -52,7 +52,7 @@ pipeline {
                 label "master"
             }
             steps {
-
+                sh "deploy"
             }
         }
     }
