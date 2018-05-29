@@ -52,8 +52,10 @@ RUN apt-get update && \
 	curl -sS https://getcomposer.org/installer | php -- --install-dir=usr/bin  --filename=composer
 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY apache2-foreground /usr/local/bin/apache2-foreground
 
 WORKDIR /var/www
 EXPOSE 80
 
-CMD [ "/bin/bash", "/usr/sbin/apache2ctl", "-e", "debug", "-D", "FOREGROUND" ]
+# CMD [ "/bin/bash", "/usr/sbin/apache2ctl", "-e", "debug", "-D", "FOREGROUND" ]
+CMD [ "/bin/bash", "/usr/local/bin/apache2-foreground" ]
