@@ -30,7 +30,7 @@ class PresentationController extends Controller
 
         return $this->render("impress/presentation.html.twig", [
             'layout'       => "impress/layout.html.twig",
-            'slides' => 2,
+            'slides' => 6,
         ]);
     }
 }

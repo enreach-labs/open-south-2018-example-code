@@ -16,14 +16,11 @@
     {% spaceless %}
 
     <div id="impress" >
-        {% include "impress/slides/0.html.twig" %}
-        {% include "impress/slides/1.html.twig" %}
-        {% include "impress/slides/2.html.twig" %}
 
-        {#{%- for i in 0..slides -%}#}
-            {#{{- (slide.content|default('&nbsp;'))|raw -}}#}
-            {#{% include "impress/slides/" ~ i ~ ".html.twig" %}#}
-        {#{%- endfor -%}#}
+        {%- for i in 0..slides -%}
+            {{- (slide.content|default('&nbsp;'))|raw -}}
+            {% include "impress/slides/" ~ i ~ ".html.twig" %}
+        {%- endfor -%}
 
     </div><!-- /#impress -->
 
