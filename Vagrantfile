@@ -41,11 +41,6 @@ Vagrant.configure(2) do |config|
             end
         end
     end
-    config.vm.provision "file",
-        source: ".ssh/id_rsa",
-        destination: "/home/vagrant/.ssh/id_rsa"
-        public_key = File.read(".ssh/id_rsa.pub")
-
     config.vm.provision "shell",
         path: "provision/common.sh",
         privileged: false

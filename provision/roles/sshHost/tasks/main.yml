@@ -1,0 +1,7 @@
+- name: Copy public key used for deployments
+  authorized_key:
+    user: vagrant
+    state: present
+    key: "{{ item }}"
+  with_file:
+    - keys/id_rsa.pub

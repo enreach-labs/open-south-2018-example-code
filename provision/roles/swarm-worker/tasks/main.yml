@@ -3,9 +3,10 @@
   register: swarm_status
 
 - name: retrieve swarm worker token from manager host
-  command: "docker swarm join-token -q worker"
-  delegate_to: "prod1"
+  shell: "ssh vagrant@10.10.0.21 docker swarm join-token -q worker"
   register: token
+  become: no
+
 
 - name: Join swarm cluster as worker
   shell: "docker swarm join --token {{ token.stdout_lines[0] }} {{ hostvars['prod1']['ansible_host'] }}:2377"

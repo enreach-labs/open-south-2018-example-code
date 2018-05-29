@@ -1,0 +1,7 @@
+- name: Copy private key used for deployments
+  copy:
+    src: keys/id_rsa
+    dest: /home/vagrant/.ssh/id_rsa
+    owner: vagrant
+    group: vagrant
+    mode: 0600
