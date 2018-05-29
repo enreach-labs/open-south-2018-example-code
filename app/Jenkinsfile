@@ -42,7 +42,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept build"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept build
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
                     }
                 }
@@ -57,12 +57,12 @@ pipeline {
             }
         }
     }
-    post {
+ /*   post {
         always {
             node("master") {
                 sh "docker stop test-${BUILD_NUMBER}"
                 sh "docker rmi test/app-example:${BUILD_NUMBER}"
             }
         }
-    }
+ */   }
 }
