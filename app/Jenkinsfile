@@ -60,7 +60,7 @@ pipeline {
         always {
             node("master") {
                 sh "docker stop test-${BUILD_NUMBER}"
-                sh "docker rmi test/app-example:${BUILD_NUMBER}"
+                //sh "docker rmi test/app-example:${BUILD_NUMBER}"
             }
         }
     }
