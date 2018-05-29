@@ -64,5 +64,5 @@ pipeline {
                 sh "docker rmi test/app-example:${BUILD_NUMBER}"
             }
         }
- */   }
+    }*/
 }
