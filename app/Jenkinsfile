@@ -50,15 +50,14 @@ pipeline {
                 label "master"
             }
             steps {
-                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
+                sh "ssh -o StrictHostKeyChecking=no vagrant@10.10.0.12 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
             }
         }
     }
     post {
         always {
             node("master") {
-                sh "docker stop test-${BUILD_NUMBER}"
-                sh "docker rmi test/app-example:${BUILD_NUMBER}"
+                sh "docker rmi summalabs/termica:${BUILD_NUMBER}"
             }
         }
     }
