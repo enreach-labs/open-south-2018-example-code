@@ -3,7 +3,7 @@
   register: swarm_status
 
 - name: retrieve swarm worker token from manager host
-  shell: "ssh vagrant@10.10.0.21 docker swarm join-token -q worker"
+  shell: "ssh -o StrictHostKeyChecking=no vagrant@10.10.0.21 docker swarm join-token -q worker"
   register: token
   become: no
 
