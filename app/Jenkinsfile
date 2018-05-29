@@ -1,6 +1,7 @@
 pipeline {
     agent none
     stages {
+
         stage ("Static code analysis"){
 	    agent {
                 label "master"
@@ -9,6 +10,7 @@ pipeline {
 	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor/**"
             }
         }
+
         stage ("Prepare the docker app image"){
             agent {
                 label "master"
@@ -18,33 +20,37 @@ pipeline {
                 sh "${WORKSPACE}/app/docker/build.sh summalabs ${BUILD_NUMBER}"
             }
         }
-        stage ("Run tests") {
-                    parallel {
-                        stage ("Run unit tests"){
-                            agent {
-                                label "master"
-                            }
-                            steps {
-                                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run unit"
-                            }
-                        }
-                        stage ("Run Component tests"){
-                            agent {
-                                label "master"
-                            }
-                            steps {
-                                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run functional"
-                            }
-                        }
+
+        stage ("Run tests in Test Server") {
+
+            parallel {
+
+                stage ("Run unit tests"){
+                    agent {
+                        label "master"
+                    }
+                    steps {
+                        sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run unit"
                     }
                 }
 
-        stage ("Deploy app in Staging server"){
+                stage ("Run Component tests"){
+                    agent {
+                        label "master"
+                    }
+                    steps {
+                        sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run functional"
+                    }
+                }
+            }
+        }
+
+        stage ("Run E2E in Staging server"){
             agent {
                 label "master"
             }
             steps {
-                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker info"
+                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
             }
         }
     }
@@ -52,7 +58,7 @@ pipeline {
         always {
             node("master") {
                 sh "docker stop test-${BUILD_NUMBER}"
-                //sh "docker rmi test/app-example:${BUILD_NUMBER}"
+                sh "docker rmi test/app-example:${BUILD_NUMBER}"
             }
         }
     }
