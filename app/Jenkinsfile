@@ -6,7 +6,7 @@ pipeline {
                 label "master"
             }
             steps {
-	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor"
+	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor/**"
             }
         }
         stage ("Prepare the docker image"){
@@ -26,7 +26,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept unit"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run unit"
                     }
                 }
                 stage ("Run Component tests"){
@@ -34,7 +34,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept functional"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run functional"
                     }
                 }
                 stage ("Run E2E tests"){
@@ -42,7 +42,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept acceptance"
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
                     }
                 }
             }
