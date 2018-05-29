@@ -25,19 +25,25 @@ pipeline {
                     agent {
                         label "master"
                     }
+                    steps {
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept unit"
+                    }
                 }
                 stage ("Run Component tests"){
                     agent {
                         label "master"
                     }
+                    steps {
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept functional"
+                    }
                 }
                 stage ("Run E2E tests"){
                     agent {
                         label "master"
                     }
+                    steps {
                         sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept acceptance"
+                    }
                 }
             }
         }
