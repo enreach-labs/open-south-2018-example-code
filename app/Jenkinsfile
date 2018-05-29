@@ -6,11 +6,10 @@ pipeline {
                 label "master"
             }
             steps {
-                checkout([$class: 'GitSCM', poll : true, branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/RafalEsp/devops-provision.git']]])
-	        sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/"
+	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor"
             }
         }
-        stage ("Run Unit tests"){
+        stage ("Prepare the docker image"){
             agent {
                 label "master"
             }
@@ -18,7 +17,34 @@ pipeline {
                 sh "docker run --rm --volume ${WORKSPACE}/app:/app composer install"
                 sh "${WORKSPACE}/app/docker/build.sh test ${BUILD_NUMBER}" 
                 sh "docker run --rm -d --name test-${BUILD_NUMBER} test/app-example:${BUILD_NUMBER}"
-                sh "docker exec test-${BUILD_NUMBER} php vendor/bin/phpunit"
+            }
+        }
+        stage ("Run tests") {
+            parallel {
+                stage ("Run unit tests"){
+                    agent {
+                        label "master"
+                    }
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept unit"
+                }
+                stage ("Run Component tests"){
+                    agent {
+                        label "master"
+                    }
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept functional"
+                }
+                stage ("Run E2E tests"){
+                    agent {
+                        label "master"
+                    }
+                        sh "docker exec test-${BUILD_NUMBER} php vendor/bin/codecept acceptance"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            node("master") {
                 sh "docker stop test-${BUILD_NUMBER}"
                 sh "docker rmi test/app-example:${BUILD_NUMBER}"
             }
