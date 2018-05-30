@@ -2,6 +2,6 @@
   copy:
     src: keys/id_rsa
     dest: /var/lib/jenkins/id_rsa
-    owner: vagrant
-    group: vagrant
+    owner: jenkins
+    group: jenkins
     mode: 0600
