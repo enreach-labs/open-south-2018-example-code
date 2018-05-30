@@ -50,7 +50,10 @@ pipeline {
                 label "master"
             }
             steps {
-                sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker run --rm -p 80:80 summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
+                sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker run --rm -p 80:80 --name termica_e2e summalabs/termica:${BUILD_NUMBER}"
+                sh "sleep 5s"
+                sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker exec termica_e2e php vendor/bin/codecept run acceptance"
+                sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker stop termica_e2e"
             }
         }
     }
