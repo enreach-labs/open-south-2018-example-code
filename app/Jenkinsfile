@@ -30,7 +30,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run unit"
+                        sh "ssh -o StrictHostKeyChecking=no -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run unit"
                     }
                 }
 
@@ -39,7 +39,7 @@ pipeline {
                         label "master"
                     }
                     steps {
-                        sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run functional"
+                        sh "ssh -o StrictHostKeyChecking=no -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.11 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run functional"
                     }
                 }
             }
@@ -50,7 +50,7 @@ pipeline {
                 label "master"
             }
             steps {
-                sh "ssh -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
+                sh "ssh -o StrictHostKeyChecking=no -i provision/roles/sshClient/keys/id_rsa vagrant@10.10.0.12 docker run --rm summalabs/termica:${BUILD_NUMBER} php vendor/bin/codecept run acceptance"
             }
         }
     }
