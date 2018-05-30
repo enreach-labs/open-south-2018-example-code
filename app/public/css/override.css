@@ -24,3 +24,10 @@ h1 {
     font-style: italic;
     font-weight: bold;
 }
+
+p.section {
+    margin-top: 20px;
+    text-align: justify;
+    font-style: italic;
+    text-decoration: underline;
+}

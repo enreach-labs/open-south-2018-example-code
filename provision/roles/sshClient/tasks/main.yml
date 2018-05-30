@@ -4,4 +4,4 @@
     dest: /home/vagrant/.ssh/id_rsa
     owner: vagrant
     group: vagrant
-    mode: 0644
+    mode: 0600
