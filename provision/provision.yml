@@ -10,6 +10,7 @@
     - java
     - jenkins
     - sonarqube
+    - sshClientJenkins
 
 - hosts: test
   become: true

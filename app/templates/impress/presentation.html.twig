@@ -18,7 +18,6 @@
     <div id="impress" >
 
         {%- for i in 0..slides -%}
-            {{- (slide.content|default('&nbsp;'))|raw -}}
             {% include "impress/slides/" ~ i ~ ".html.twig" %}
         {%- endfor -%}
     </div><!-- /#impress -->
