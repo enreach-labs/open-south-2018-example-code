@@ -3,7 +3,7 @@ pipeline {
     stages {
 
         stage ("Static code analysis"){
-	    agent {
+	        agent {
                 label "master"
             }
             steps {
@@ -15,8 +15,12 @@ pipeline {
             agent {
                 label "master"
             }
-            steps {
-                sh "docker run --rm -p 80:80 --volume ${WORKSPACE}/app:/app composer install"
+                steps {
+                    script{
+                        docker.image('composer:latest').inside('-p 80:80 --volume ${WORKSPACE}/app:/ap') { c ->
+                            sh 'composer install -d ${WORKSPACE}/app'
+                        }
+                    }
                 sh "${WORKSPACE}/app/docker/build.sh summalabs ${BUILD_NUMBER}"
             }
         }
