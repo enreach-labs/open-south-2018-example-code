@@ -9,6 +9,7 @@
     state: present
   with_items:
     - deb http://pkg.jenkins.io/debian-stable binary/
+    - ppa:ansible/ansible
 
 - name: Update repositories and install packages
   apt:
@@ -17,6 +18,7 @@
     state: present
   with_items:
     - jenkins
+    - ansible
 
 - name: read admin pwd
   shell: cat /var/lib/jenkins/secrets/initialAdminPassword
