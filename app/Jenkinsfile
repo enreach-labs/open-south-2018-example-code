@@ -67,7 +67,7 @@ pipeline {
             }
             steps {
                 input "Deploy to production?"
-                sh "ansible-playbook ${WORKSPACE}/provision/deploy.yml -i ${WORKSPACE}/provision/inventory/deploymentHosts.yml -e \"version=${BUILD_NUMBER}\""
+                sh "ansible-playbook ${WORKSPACE}/provision/deploy.yml -i ${WORKSPACE}/provision/inventory/deploymentHosts.yml -e '{"version":"${BUILD_NUMBER}"}'"
             }
         }
     }
