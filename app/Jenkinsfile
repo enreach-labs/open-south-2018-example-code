@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-/*
+
         stage ("Static code analysis"){
 	        agent {
                 label "master"
@@ -10,7 +10,7 @@ pipeline {
 	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor/**"
             }
         }
-*/
+
         stage ("Prepare the docker app image"){
             agent {
                 label "master"
@@ -24,7 +24,7 @@ pipeline {
                 sh "${WORKSPACE}/app/docker/build.sh summalabs ${BUILD_NUMBER}"
             }
         }
-/*
+
         stage ("Run tests in Test Server") {
 
             parallel {
@@ -60,7 +60,7 @@ pipeline {
                 sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker stop termica_e2e"
             }
         }
-*/
+
         stage ("Deploy app on production"){
             agent {
                 label "master"
@@ -71,6 +71,7 @@ pipeline {
             }
         }
     }
+    
     post {
         always {
             node("master") {
