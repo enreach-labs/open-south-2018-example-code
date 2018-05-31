@@ -2,5 +2,5 @@ all:
     hosts:
         prod1:
             ansible_host: 10.10.0.21
-            ansible_user: "jenkins"
+            ansible_user: "vagrant"
             ansible_ssh_private_key_file: /var/lib/jenkins/id_rsa
