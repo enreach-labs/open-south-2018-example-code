@@ -67,9 +67,7 @@ pipeline {
             }
             steps {
                 input "Deploy to production?"
-                def cmd ="""ansible-playbook ${WORKSPACE}/provision/deploy.yml -i ${WORKSPACE}/provision/inventory/deploymentHosts.yml --extra-vars "version=${BUILDNUMBER}""""
-                sh cmd
-
+                sh "ansible-playbook ${WORKSPACE}/provision/deploy.yml -i ${WORKSPACE}/provision/inventory/deploymentHosts.yml --extra-vars 'version=${BUILD_NUMBER}'"
             }
         }
     }
