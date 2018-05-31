@@ -14,5 +14,5 @@
       when: "'1' not in app_status.stdout_lines[0]"
 
     - name: update app service version
-      shell: "docker service update --image summalabs/termica:{{ version }}"
+      shell: "docker service update --image summalabs/termica:{{ version }} app"
       when: "'1' in app_status.stdout_lines[0]"
