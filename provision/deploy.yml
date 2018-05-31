@@ -1,0 +1,19 @@
+- hosts: prod1
+
+tasks:
+  - name: check if app is running on production
+    shell: "docker service ls --filter name=portainer --quiet | wc -l"
+    register: app_status
+
+  - name: create app service
+    shell: "docker service create \
+                --name app \
+                --publish 80:80 \
+                --replicas=2 \
+                summalabs/termica:{{ version }}"
+
+    when: "'1' not in app_status.stdout_lines[0]"
+
+  - name: update app service version
+    shell: "docker service update --image summalabs/termica:{{ version }}"
+    when: "'1' in app_status.stdout_lines[0]"

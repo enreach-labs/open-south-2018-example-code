@@ -4,4 +4,20 @@
 
 - name: initialize swarm cluster
   shell: docker swarm init --advertise-addr={{ hostvars['prod1']['ansible_host'] }}:2377
-  when: "'active' not in swarm_status.stdout_lines"
+  when: "'inactive' in swarm_status.stdout_lines"
+
+
+- name: check if portainer service is running
+  shell: "docker service ls --filter name=portainer --quiet | wc -l"
+  when: "'inactive' not in swarm_status.stdout_lines"
+  register: status_portainer
+
+- name: provision portainer docker service
+  shell: "docker service create \
+              --name portainer \
+              --publish 9000:9000 \
+              --replicas=1 \
+              --constraint 'node.role == manager' \
+              --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+              portainer/portainer"
+  when: "'1' not in status_portainer.stdout_lines[0]"

@@ -54,11 +54,20 @@ pipeline {
                 label "master"
             }
             steps {
-                input "Deploy to staging?"
                 sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker run -d --rm -p 80:80 --name termica_e2e summalabs/termica:${BUILD_NUMBER}"
                 sh "sleep 5s"
                 sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker exec termica_e2e php vendor/bin/codecept run acceptance"
                 sh "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/id_rsa vagrant@10.10.0.12 docker stop termica_e2e"
+            }
+        }
+
+        stage ("Deploy app on production"){
+            agent {
+                label "master"
+            }
+            steps {
+                input "Deploy to production?"
+                sh "ansible-playbook ${WORKSPACE}/provision/deploy.yml --extra-vars 'version: ${BUILD_NUMBER}'"
             }
         }
     }
