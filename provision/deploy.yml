@@ -1,7 +1,7 @@
 - hosts: prod1
   tasks:
     - name: check if app is running on production
-      shell: "docker service ls --filter name=portainer --quiet | wc -l"
+      shell: "docker service ls --filter name=app --quiet | wc -l"
       register: app_status
 
     - name: create app service

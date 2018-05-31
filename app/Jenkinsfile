@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-
+/*
         stage ("Static code analysis"){
 	        agent {
                 label "master"
@@ -10,7 +10,7 @@ pipeline {
 	            sh "/usr/local/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.branch=master -Dsonar.projectKey=test -Dsonar.sources=app/ -Dsonar.exclusions=app/vendor/**"
             }
         }
-
+*/
         stage ("Prepare the docker app image"){
             agent {
                 label "master"
