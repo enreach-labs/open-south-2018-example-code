@@ -2,11 +2,11 @@
   become: true
   roles:
     - docker
-    - users
 
 - hosts: develop
   become: true
   roles:
+    - users
     - java
     - jenkins
     - sonarqube
@@ -15,25 +15,21 @@
 - hosts: test
   become: true
   roles:
-    - java
     - sshHost
 
 - hosts: staging
   become: true
   roles:
-    - java
     - sshHost
 
 - hosts: prod1
   become: true
   roles:
     - sshHost
-    - java
     - swarm-manager
 
 - hosts: prod2
   become: true
   roles:
     - sshClient
-    - java
     - swarm-worker
