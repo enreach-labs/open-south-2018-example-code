@@ -4,3 +4,4 @@ all:
             ansible_host: 10.10.0.21
             ansible_user: "vagrant"
             ansible_ssh_private_key_file: /var/lib/jenkins/id_rsa
+            ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
